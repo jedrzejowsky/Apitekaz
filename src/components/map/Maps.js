@@ -1,14 +1,20 @@
+import { divIcon } from 'leaflet';
 import React from 'react'
-import { MapContainer } from 'https://cdn.esm.sh/react-leaflet/MapContainer'
-import { TileLayer } from 'https://cdn.esm.sh/react-leaflet/TileLayer'
-import { useMap } from 'https://cdn.esm.sh/react-leaflet/hooks'
-import { Marker } from 'react-leaflet'
-import { Popup } from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
 
 export default function Maps() {
   return (
-    <MapContainer center={[51.505, -0.09]} zoom={8} scrollWheelZoom={false} style={{ height: "500px", width: "200px" }} >
+    <div
+    style={{
+      display: "flex",
+      flexDirection: "row",
+      width: "100vw",
+      height: "100vh",
+    }}
+  >
+    <div  style={{ width: "50vw", height: "100%" }}>
+    <MapContainer center={[51.505, -0.09]} zoom={8} scrollWheelZoom={false} style={{ width: "100%", height: "100%" }} >
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -19,5 +25,7 @@ export default function Maps() {
       </Popup>
     </Marker>
   </MapContainer>
+  </div>
+  </div>
   )
 }
