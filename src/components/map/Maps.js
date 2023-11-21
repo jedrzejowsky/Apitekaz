@@ -4,8 +4,6 @@ import { TileLayer } from 'https://cdn.esm.sh/react-leaflet/TileLayer'
 import { useMap } from 'https://cdn.esm.sh/react-leaflet/hooks'
 import { Marker } from 'react-leaflet'
 import { Popup } from 'react-leaflet'
-// import "leaflet/dist/leaflet.css";
-import L from "leaflet";
 
 
 export default function Maps() {
