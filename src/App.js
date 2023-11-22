@@ -6,6 +6,7 @@ import routes from "./config/routes";
 import Center from "./components/utils/Center";
 import AuthChecker from "./components/auth/AuthChecker";
 import Maps from "./components/map/Maps";
+import MapPage from "./components/map/MapPage";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -50,7 +51,7 @@ function App() {
           ))}
           <Route
           path="/map"
-          element= {<Maps/>}
+          element= {<MapPage/>}
             />
         </Routes>
       </BrowserRouter>
