@@ -4,8 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import AuthContainer from "../components/auth/AuthContainer";
 import Center from "../components/utils/Center";
 import LoginForm from "../components/forms/loginForm";
-import RegistrationForm from "../components/forms/registerForm";
-
+import RegistrationForm from "../components/forms/registrationForm";
 const tabIdToURL = {
   0: "login",
   1: "register",

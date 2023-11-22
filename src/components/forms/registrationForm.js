@@ -1,23 +1,30 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebase";
 import { Button, Typography, TextField } from "@mui/material";
 import Center from "../utils/Center";
 
-const LoginForm = () => {
+const RegistrationForm = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleEmailAndPasswordSignIn = async () => {
+  const handleRegistration = async () => {
     try {
       setDisabled(true);
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       setDisabled(false);
-      console.info("TODO: navigate to authenticated screen");
+      console.info("TODO: Navigate to authenticated screen after registration");
+      // Przykładowe użycie userCredential - uzyskanie dostępu do danych użytkownika
+      const user = userCredential.user;
+      console.log("User registered:", user);
       navigate("/");
     } catch (error) {
       setErrorMessage(error.code + ": " + error.message);
@@ -48,9 +55,9 @@ const LoginForm = () => {
       <Button
         variant="contained"
         disabled={disabled}
-        onClick={handleEmailAndPasswordSignIn}
+        onClick={handleRegistration}
       >
-        Sign In
+        Register
       </Button>
       <Typography sx={{ mt: 2 }} color={"red"}>
         {errorMessage}
@@ -59,4 +66,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegistrationForm;
