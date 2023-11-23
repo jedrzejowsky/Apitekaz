@@ -13,7 +13,7 @@ import Logout from "../auth/Logout";
 
 const Navbar = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sx"));
 
   return (
     <AppBar position="static">
@@ -23,7 +23,7 @@ const Navbar = () => {
             <Typography variant="h6" component="div">
               Apitekaz
             </Typography>
-            <IconButton size="large" aria-label="map" color="inherit">
+            <IconButton size="large" aria-label="map" color="warning">
               <Map />
             </IconButton>
             <Logout />
