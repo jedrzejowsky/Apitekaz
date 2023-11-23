@@ -5,16 +5,18 @@ import AuthContainer from "../components/auth/AuthContainer";
 import Center from "../components/utils/Center";
 import LoginForm from "../components/forms/loginForm";
 import RegistrationForm from "../components/forms/registrationForm";
+
+import backgroundImage from "../assets/background1.png"; // Update with your image path
+
 const tabIdToURL = {
   0: "login",
   1: "register",
 };
 
-const Login = (props) => {
+const Login = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const action = searchParams.get("action") || "login";
-
   let indexFromUrl = 0;
   if (action === "register") {
     indexFromUrl = 1;
@@ -36,6 +38,11 @@ const Login = (props) => {
         flexDirection={"column"}
         boxShadow={2}
         margin={3}
+        sx={{
+          backgroundImage: `url(${backgroundImage})`, // Set the background image
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
       >
         <Box sx={{ borderBottom: 1, borderColor: "divider", width: "100%" }}>
           <Tabs value={value} onChange={handleChange} variant="fullWidth">
