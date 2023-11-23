@@ -11,19 +11,15 @@ const tabIdToURL = {
 };
 
 const Login = (props) => {
-  // getting and setting URL params
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // get action from URL
   const action = searchParams.get("action") || "login";
 
-  // used to set initial state
   let indexFromUrl = 0;
   if (action === "register") {
     indexFromUrl = 1;
   }
 
-  // handle Tab Panel
   const [value, setValue] = React.useState(indexFromUrl);
 
   const handleChange = (event, newValue) => {
