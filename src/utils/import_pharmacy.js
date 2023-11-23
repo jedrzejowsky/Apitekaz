@@ -32,11 +32,17 @@ function sleep(ms) {
 
 if(pharmaciesList){
 pharmaciesList.forEach(async item =>{
-  await addDoc(collection(firestore, collectionName), item)
-  await sleep(100).then(() =>{
-    console.log('record added');
-  });
-  
+
+  try {
+    await addDoc(collection(firestore, collectionName), item)
+    await sleep(100).then(() =>{
+      console.log('record added');
+    });
+    
+  }
+  catch (error) {
+    console.error("Error adding document: ", error);
+  } 
 })
 }
 
