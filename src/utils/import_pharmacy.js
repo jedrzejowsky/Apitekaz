@@ -1,9 +1,16 @@
 import { initializeApp } from "firebase/app";
-// import { firebaseConfig } from "../config/firebase.config.js"
-import { getFirestore } from "firebase/firestore"
-import { getAuth } from "firebase/auth"
+import { collection, getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { type } from "@testing-library/user-event/dist/type/index.js";
+import fs from "fs";
+import { doc, setDoc, addDoc } from "firebase/firestore"; 
 
-// const firebase = initializeApp({firebaseConfig});
+// change path do json file
+const pharmacies = fs.readFileSync("./data/geoPharmacies_0_800.json", "utf-8");
+if (!pharmacies) throw new Error("Can't read file");
+const pharmaciesList = await JSON.parse(pharmacies);
+
+// neet to add credentials manualy env not work
 const firebaseConfig = initializeApp({
     apiKey: process.env.REACT_APP_FirebaseApiKey,
     authDomain: process.env.REACT_APP_FirebaseAuthDomain,
@@ -13,23 +20,23 @@ const firebaseConfig = initializeApp({
     appId: process.env.REACT_APP_FirebaseAppId,
   });
 
-// const firestore = firebase.firestore();
 const firestore = getFirestore(firebaseConfig);
 const auth = getAuth(firebaseConfig);
 
+const collectionName = 'pharmacy'; //nazwa kolekcji
 
-const data = require('src/utils/data/geoPharmacies_0_800.json');
-const collectionKey = 'pharmacy'; //nazwa kolekcji
-
-const settings = {timestampsInSnapshots: true};
-firestore.settings(settings);
-
-if (data && (typeof data === 'object')) {
-  Object.keys(data).forEach(docKey => {
-    firestore.collection(collectionKey).doc(docKey).set(data[docKey]).then((res) => {
-      console.log('Document success saved');
-    }).catch((error) => {
-      console.error('Error while adding document: ', error);
-    });
-  });
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+
+if(pharmaciesList){
+pharmaciesList.forEach(async item =>{
+  await addDoc(collection(firestore, collectionName), item)
+  await sleep(100).then(() =>{
+    console.log('record added');
+  });
+  
+})
+}
+
