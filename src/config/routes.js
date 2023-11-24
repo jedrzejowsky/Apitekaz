@@ -1,6 +1,5 @@
 import Home from "../screens/Home";
 import Login from "../screens/Login";
-import Maps from "../components/map/Maps";
 
 const routes = [
   {
@@ -13,12 +12,6 @@ const routes = [
     path: "/login",
     component: Login,
     name: "Login Screen",
-    protected: false,
-  },
-  {
-    path: "/map",
-    component: Maps,
-    name: "Map",
     protected: false,
   }
 ];
