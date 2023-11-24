@@ -13,7 +13,7 @@ const routes = [
     component: Login,
     name: "Login Screen",
     protected: false,
-  },
+  }
 ];
 
 export default routes;

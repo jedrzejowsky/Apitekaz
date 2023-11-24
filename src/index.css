@@ -11,6 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* .leaflet-container {
+  height: 300px;
+ 
+} */
+#map {
+  height: 180px;
+}
+
 body.dark-mode {
   background-color: #333;
   color: #c5c5c5;
