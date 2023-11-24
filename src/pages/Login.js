@@ -3,26 +3,25 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import AuthContainer from "../components/auth/AuthContainer";
 import Center from "../components/utils/Center";
+import LoginForm from "../components/forms/loginForm";
+import RegistrationForm from "../components/forms/registrationForm";
+
+import backgroundImage from "../assets/background1.png"; // Update with your image path
 
 const tabIdToURL = {
   0: "login",
   1: "register",
 };
 
-const Login = (props) => {
-  // getting and setting URL params
+const Login = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // get action from URL
   const action = searchParams.get("action") || "login";
-
-  // used to set initial state
   let indexFromUrl = 0;
   if (action === "register") {
     indexFromUrl = 1;
   }
 
-  // handle Tab Panel
   const [value, setValue] = React.useState(indexFromUrl);
 
   const handleChange = (event, newValue) => {
@@ -39,6 +38,11 @@ const Login = (props) => {
         flexDirection={"column"}
         boxShadow={2}
         margin={3}
+        sx={{
+          backgroundImage: `url(${backgroundImage})`, // Set the background image
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
       >
         <Box sx={{ borderBottom: 1, borderColor: "divider", width: "100%" }}>
           <Tabs value={value} onChange={handleChange} variant="fullWidth">
@@ -48,10 +52,12 @@ const Login = (props) => {
         </Box>
         {/* login */}
         <TabPanel value={value} index={0}>
+          <LoginForm />
           <AuthContainer />
         </TabPanel>
         {/* register */}
         <TabPanel value={value} index={1}>
+          <RegistrationForm />
           <AuthContainer />
         </TabPanel>
       </Box>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebase";
@@ -7,6 +8,7 @@ import { auth } from "../../config/firebase";
 const Logout = ({ navigateTo = "/login" }) => {
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
+
   const logout = () => {
     setDisabled(true);
     signOut(auth)
@@ -21,9 +23,9 @@ const Logout = ({ navigateTo = "/login" }) => {
 
   return (
     <div>
-      <Button disabled={disabled} onClick={logout}>
-        Logout
-      </Button>
+      <IconButton disabled={disabled} onClick={logout} aria-label="Logout">
+        <ExitToAppIcon />
+      </IconButton>
     </div>
   );
 };
