@@ -25,3 +25,4 @@ yarn-error.log*
 
 dev.md
 .env
+/src/utils/data
