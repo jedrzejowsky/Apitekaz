@@ -5,19 +5,21 @@ import { type } from "@testing-library/user-event/dist/type/index.js";
 import fs from "fs";
 import { doc, setDoc, addDoc } from "firebase/firestore"; 
 
+// cd src , cd untils, node ./import_pharmacy.js
+
 // change path do json file
-const pharmacies = fs.readFileSync("./data/geoPharmacies_0_800.json", "utf-8");
+const pharmacies = fs.readFileSync("./data/geoPharmacies_7000-7999.json", "utf-8");
 if (!pharmacies) throw new Error("Can't read file");
 const pharmaciesList = await JSON.parse(pharmacies);
 
 // neet to add credentials manualy env not work
 const firebaseConfig = initializeApp({
-    apiKey: process.env.REACT_APP_FirebaseApiKey,
-    authDomain: process.env.REACT_APP_FirebaseAuthDomain,
-    projectId: process.env.REACT_APP_FirebaseProjectId,
-    storageBucket: process.env.REACT_APP_FirebaseStorageBucket,
-    messagingSenderId: process.env.REACT_APP_FirebaseMessagingSenderId,
-    appId: process.env.REACT_APP_FirebaseAppId,
+  apiKey: process.env.REACT_APP_FirebaseApiKey,
+  authDomain: process.env.REACT_APP_FirebaseAuthDomain,
+  projectId: process.env.REACT_APP_FirebaseProjectId,
+  storageBucket: process.env.REACT_APP_FirebaseStorageBucket,
+  messagingSenderId: process.env.REACT_APP_FirebaseMessagingSenderId,
+  appId: process.env.REACT_APP_FirebaseAppId,
   });
 
 const firestore = getFirestore(firebaseConfig);
@@ -44,5 +46,5 @@ pharmaciesList.forEach(async item =>{
     console.error("Error adding document: ", error);
   } 
 })
+console.log('import data success');
 }
-
