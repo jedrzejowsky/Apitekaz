@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -23,7 +24,13 @@ const Navbar = () => {
             <Typography variant="h6" component="div">
               Apitekaz
             </Typography>
-            <IconButton size="large" aria-label="map" color="warning">
+            <IconButton
+              component={Link}
+              to="/"
+              size="large"
+              aria-label="map"
+              color="warning"
+            >
               <Map />
             </IconButton>
             <Logout />
