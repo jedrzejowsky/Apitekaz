@@ -1,4 +1,3 @@
-
 import { divIcon } from "leaflet";
 import React, { useEffect, useState } from "react";
 import {
@@ -12,7 +11,7 @@ import {
 import MarkerClusterGroup from "react-leaflet-cluster";
 import data from "./geoPharmacies_0_800.json";
 import L, { MarkerCluster } from "leaflet";
-import url from "./placeholder.png";
+import url from "../../assets/placeholder.png";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 
 function LocateControl() {
@@ -44,12 +43,10 @@ function LocateControl() {
   );
 }
 
-
 export default function Maps(props) {
   const [pharmacies, setPharmacies] = useState([]);
   const { selectPosition } = props;
   const position = [51.919438, 19.145136];
-
 
   const customIcon = new L.Icon({
     iconUrl: url,
@@ -67,7 +64,6 @@ export default function Maps(props) {
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-
       <MapContainer
         center={position}
         zoom={6}
@@ -99,7 +95,6 @@ export default function Maps(props) {
         </MarkerClusterGroup>
 
         <LocateControl />
-
       </MapContainer>
     </div>
   );
