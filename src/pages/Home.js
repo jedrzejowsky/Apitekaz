@@ -1,7 +1,6 @@
 import Center from "../components/utils/Center";
 import Navbar from "../components/navbar/navbar";
 import MapPage from "../components/map/MapPage";
-import LocateMe from "../components/map/LocateMe";
 
 const Home = (props) => {
   return (
