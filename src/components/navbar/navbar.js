@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Map } from "@mui/icons-material";
 import Logout from "../auth/Logout";
+import SearchBar from "../map/SearchBar";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -34,6 +35,7 @@ const Navbar = () => {
               <Map />
             </IconButton>
             <Logout />
+            <SearchBar />
           </Box>
         )}
       </Toolbar>
