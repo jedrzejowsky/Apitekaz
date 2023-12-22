@@ -36,7 +36,7 @@ function LocateControl() {
       <MyLocationIcon onClick={handleClick} />
       {position && (
         <p>
-          You are located at {position.lat}, {position.lng}
+          Your localization {position.lat}, {position.lng}
         </p>
       )}
     </div>
