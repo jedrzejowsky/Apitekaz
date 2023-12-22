@@ -1,3 +1,4 @@
+
 import { divIcon } from "leaflet";
 import React, { useEffect, useState } from "react";
 import {
@@ -43,10 +44,12 @@ function LocateControl() {
   );
 }
 
+
 export default function Maps(props) {
+  const [pharmacies, setPharmacies] = useState([]);
   const { selectPosition } = props;
-  const locationSelection = [selectPosition?.lat, selectPosition?.lon];
   const position = [51.919438, 19.145136];
+
 
   const customIcon = new L.Icon({
     iconUrl: url,
@@ -64,6 +67,7 @@ export default function Maps(props) {
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
+
       <MapContainer
         center={position}
         zoom={6}
@@ -95,6 +99,7 @@ export default function Maps(props) {
         </MarkerClusterGroup>
 
         <LocateControl />
+
       </MapContainer>
     </div>
   );
