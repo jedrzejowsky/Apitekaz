@@ -13,6 +13,7 @@ import data from "./geoPharmacies_0_800.json";
 import L, { MarkerCluster } from "leaflet";
 import url from "../../assets/placeholder.png";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
+import SearchLocation from "./SearchLocation"; // Import SearchLocation component
 
 function LocateControl() {
   const map = useMap();
@@ -70,11 +71,11 @@ export default function Maps(props) {
         scrollWheelZoom={true}
         style={{ border: "2px solid red", width: "100%", height: "100%" }}
       >
+        <SearchLocation />
         <TileLayer
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-
         <MarkerClusterGroup chunkedLoading>
           {data.map((address, index) => (
             <Marker
@@ -93,7 +94,6 @@ export default function Maps(props) {
             </Marker>
           ))}
         </MarkerClusterGroup>
-
         <LocateControl />
       </MapContainer>
     </div>
