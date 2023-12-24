@@ -22,7 +22,6 @@ const RegistrationForm = () => {
       );
       setDisabled(false);
       console.info("TODO: Navigate to authenticated screen after registration");
-      // Przykładowe użycie userCredential - uzyskanie dostępu do danych użytkownika
       const user = userCredential.user;
       console.log("User registered:", user);
       navigate("/");
