@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { IconButton } from "@mui/material";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { IconButton, Typography } from "@mui/material";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebase";
@@ -24,7 +23,10 @@ const Logout = ({ navigateTo = "/login" }) => {
   return (
     <div>
       <IconButton disabled={disabled} onClick={logout} aria-label="Logout">
-        <ExitToAppIcon />
+        <Typography variant="h6" color="secondary">
+          Logout
+        </Typography>{" "}
+        {/* Zmieniamy variant na "h6" i color na "secondary" */}
       </IconButton>
     </div>
   );

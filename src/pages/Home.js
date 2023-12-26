@@ -1,14 +1,13 @@
-import Center from "../components/utils/Center";
-import Navbar from "../components/navbar/navbar";
+// Home.js
+import React from "react";
+import Drawer from "../components/guideUI/Drawer";
 import MapPage from "../components/map/MapPage";
 
 const Home = (props) => {
   return (
     <>
-      <Navbar />
-      <Center>
-        <MapPage />
-      </Center>
+      <MapPage />
+      <Drawer />
     </>
   );
 };
