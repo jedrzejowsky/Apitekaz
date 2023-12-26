@@ -1,15 +1,12 @@
-import React from "react";
-import { makeStyles } from "@mui/styles";
-import { Tab, Tabs, Box, Typography, Button, Divider } from "@mui/material";
-import { useTheme } from "@mui/system";
+import * as React from "react";
+import { Tab, Tabs, Box, Typography, Divider } from "@mui/material";
+import { styled, useTheme } from "@mui/system";
 import { auth } from "../../config/firebase";
 import Logout from "../auth/Logout";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    width: "100%",
-  },
+const Root = styled("div")(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  width: "100%",
 }));
 
 function TabPanel(props) {
@@ -29,7 +26,6 @@ function TabPanel(props) {
 }
 
 export default function FullWidthTabs() {
-  const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -40,7 +36,7 @@ export default function FullWidthTabs() {
   const currentUser = auth.currentUser;
 
   return (
-    <div className={classes.root}>
+    <Root>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -61,6 +57,6 @@ export default function FullWidthTabs() {
         <Divider />
         <Logout />
       </TabPanel>
-    </div>
+    </Root>
   );
 }
