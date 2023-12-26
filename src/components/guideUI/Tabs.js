@@ -1,6 +1,6 @@
 // Tabs.js
 import React from "react";
-import styled from '@emotion/styled';
+import { styled } from "@mui/system";
 import { Tab, Tabs, Box, Typography, Button, Divider } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { auth } from "../../config/firebase";
