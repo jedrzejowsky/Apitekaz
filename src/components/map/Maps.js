@@ -42,11 +42,11 @@ export default function Maps(props) {
         scrollWheelZoom={true}
         style={{ width: "100%", height: "100%" }}
       >
-        <SearchLocation />
         <TileLayer
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
         <MarkerClusterGroup chunkedLoading>
           {data.map((address, index) => (
             <Marker
@@ -65,6 +65,7 @@ export default function Maps(props) {
             </Marker>
           ))}
         </MarkerClusterGroup>
+
         <LocateControl />
       </MapContainer>
     </div>
