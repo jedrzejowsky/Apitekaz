@@ -12,7 +12,7 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import data from "./geoPharmacies_0_800.json";
 import L, { MarkerCluster } from "leaflet";
 import url from "../../assets/placeholder.png";
-import SearchLocation from "./SearchLocation";
+// import SearchLocation from "./SearchLocation";
 import LocateControl from "./LocateControl";
 
 export default function Maps(props) {
@@ -42,7 +42,7 @@ export default function Maps(props) {
         scrollWheelZoom={true}
         style={{ width: "100%", height: "100%" }}
       >
-        <SearchLocation />
+        {/* <SearchLocation /> */}
         <TileLayer
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

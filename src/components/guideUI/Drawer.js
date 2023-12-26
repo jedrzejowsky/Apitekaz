@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
+import styled from '@emotion/styled';
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Tabs from "./Tabs";
 
-const useStyles = makeStyles({
+const useStyles = styled({
   drawer: {
     width: "50%",
     zIndex: 4000,

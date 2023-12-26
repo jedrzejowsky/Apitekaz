@@ -1,12 +1,12 @@
 // Tabs.js
 import React from "react";
-import { makeStyles } from "@mui/styles";
+import styled from '@emotion/styled';
 import { Tab, Tabs, Box, Typography, Button, Divider } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { auth } from "../../config/firebase";
 import Logout from "../auth/Logout";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: "100%",
