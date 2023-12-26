@@ -1,4 +1,3 @@
-// Tabs.js
 import React from "react";
 import { makeStyles } from "@mui/styles";
 import { Tab, Tabs, Box, Typography, Button, Divider } from "@mui/material";
@@ -36,10 +35,6 @@ export default function FullWidthTabs() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
   };
 
   const currentUser = auth.currentUser;
