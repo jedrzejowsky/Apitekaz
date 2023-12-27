@@ -9,7 +9,7 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import data from "./geoPharmacies_0_800.json";
+import data from "./geoPharmacies_id_all.json";
 import L, { MarkerCluster } from "leaflet";
 import url from "../../assets/placeholder.png";
 import Search from "./Search";
