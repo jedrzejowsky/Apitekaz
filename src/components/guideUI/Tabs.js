@@ -7,7 +7,7 @@ import Placeholder from "./Placeholder";
 
 const Root = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
-  maxWidth: "600px", // Maksymalna szerokość
+  maxWidth: "290px", // Maksymalna szerokość
   margin: "0 auto", // Wyśrodkowanie
 }));
 

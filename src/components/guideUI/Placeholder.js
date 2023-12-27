@@ -15,11 +15,11 @@ import {
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FindIcon from "@mui/icons-material/LocationOn"; // Dodajemy ikonę Find
+import FindIcon from "@mui/icons-material/LocationOn";
 
 import CopyIcon from "@mui/icons-material/FileCopy";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import pharmaciesData from "../map/geoPharmacies_0_800.json"; // Ścieżka do pliku JSON
+import pharmaciesData from "../map/geoPharmacies_0_800.json";
 
 export default function Placeholder() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -107,7 +107,7 @@ export default function Placeholder() {
                 Usuń
               </Button>
               <Button
-                startIcon={<FindIcon />} // Dodajemy przycisk Find
+                startIcon={<FindIcon />}
                 onClick={() => handleFind(pharmacy)}
               >
                 Znajdź
