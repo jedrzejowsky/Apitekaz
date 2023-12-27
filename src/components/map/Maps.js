@@ -12,36 +12,7 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import data from "./geoPharmacies_0_800.json";
 import L, { MarkerCluster } from "leaflet";
 import url from "../../assets/placeholder.png";
-import MyLocationIcon from "@mui/icons-material/MyLocation";
-
-function LocateControl() {
-  const map = useMap();
-  const [position, setPosition] = useState(null);
-
-  const handleClick = () => {
-    map.locate({ setView: true, maxZoom: 16 });
-  };
-
-  useMapEvents({
-    locationfound(e) {
-      setPosition(e.latlng);
-      L.marker(e.latlng).addTo(map).bindPopup("You are here").openPopup();
-    },
-  });
-
-  return (
-    <div
-      style={{ position: "absolute", top: "90px", left: "15px", zIndex: 400 }}
-    >
-      <MyLocationIcon onClick={handleClick} />
-      {position && (
-        <p>
-          Your localization {position.lat}, {position.lng}
-        </p>
-      )}
-    </div>
-  );
-}
+import LocateControl from "./LocateControl";
 
 export default function Maps(props) {
   const [pharmacies, setPharmacies] = useState([]);
@@ -68,7 +39,7 @@ export default function Maps(props) {
         center={position}
         zoom={6}
         scrollWheelZoom={true}
-        style={{ border: "2px solid red", width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%" }}
       >
         <TileLayer
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
