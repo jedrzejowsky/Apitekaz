@@ -12,7 +12,6 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import data from "./geoPharmacies_0_800.json";
 import L, { MarkerCluster } from "leaflet";
 import url from "../../assets/placeholder.png";
-import SearchLocation from "./SearchLocation";
 import LocateControl from "./LocateControl";
 
 export default function Maps(props) {
