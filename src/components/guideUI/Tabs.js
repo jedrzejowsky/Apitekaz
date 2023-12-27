@@ -1,12 +1,14 @@
 import * as React from "react";
-import { Tab, Tabs, Box, Typography, Divider } from "@mui/material";
+import { Tab, Tabs, Box, Divider, Typography } from "@mui/material";
 import { styled, useTheme } from "@mui/system";
 import { auth } from "../../config/firebase";
 import Logout from "../auth/Logout";
+import Placeholder from "./Placeholder";
 
 const Root = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
-  width: "100%",
+  maxWidth: "600px", // Maksymalna szerokość
+  margin: "0 auto", // Wyśrodkowanie
 }));
 
 function TabPanel(props) {
@@ -48,8 +50,7 @@ export default function FullWidthTabs() {
         <Tab label="Profile" />
       </Tabs>
       <TabPanel value={value} index={0} dir={theme.direction}>
-        <Typography variant="h6">Likes</Typography>
-        <Typography>This is the Likes tab.</Typography>
+        <Placeholder />
       </TabPanel>
       <TabPanel value={value} index={1} dir={theme.direction}>
         <Typography variant="h6">Hello</Typography>
