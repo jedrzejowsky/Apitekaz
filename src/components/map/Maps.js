@@ -1,13 +1,5 @@
-import { divIcon } from "leaflet";
 import React, { useEffect, useState } from "react";
-import {
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  useMap,
-  useMapEvents,
-} from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import data from "./geoPharmacies_id_all.json";
 import L, { MarkerCluster } from "leaflet";
@@ -19,10 +11,10 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
-  getDoc,
   getFirestore,
+  onSnapshot,
 } from "firebase/firestore";
-import { auth, Firebase } from "../../config/firebase";
+import { auth } from "../../config/firebase";
 import Button from "@mui/material/Button";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -80,19 +72,21 @@ export default function Maps(props) {
   };
 
   useEffect(() => {
-    const fetchAddedPharmacies = async () => {
+    const fetchAddedPharmacies = () => {
       const docRef = doc(firestore, "userLikedPharmacy", userDocId);
-      const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        setAddedPharmacies(docSnap.data().list);
-      } else {
-        console.log("Brak dokumentu");
-      }
+      // Używamy onSnapshot do nasłuchiwania na zmiany w czasie rzeczywistym
+      onSnapshot(docRef, (docSnap) => {
+        if (docSnap.exists()) {
+          setAddedPharmacies(docSnap.data().list);
+        } else {
+          console.log("Brak dokumentu");
+        }
+      });
     };
 
     fetchAddedPharmacies();
-  }, []);
+  }, []); // Usuwamy addedPharmacies jako zależność
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>

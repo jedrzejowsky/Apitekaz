@@ -135,7 +135,6 @@ export default function Placeholder() {
 
   return (
     <div>
-      <Typography variant="h6">Likes</Typography>
       {filteredData.map((pharmacy, index) => (
         <Paper key={index} elevation={3} style={{ marginBottom: "10px" }}>
           <Accordion>
