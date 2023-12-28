@@ -24,7 +24,7 @@ export default function Maps(props) {
   const { selectPosition } = props;
   const position = [51.919438, 19.145136];
   const firestore = getFirestore();
-  const userDocId = auth.currentUser.uid;
+  const userDocId = auth.currentUser ? auth.currentUser.uid : null;
   const [addedPharmacies, setAddedPharmacies] = useState([]);
 
   const customIcon = new L.Icon({
