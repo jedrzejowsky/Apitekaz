@@ -3,13 +3,13 @@ import Login from "../pages/Login";
 
 const routes = [
   {
-    path: "",
+    path: "/map",
     component: Home,
     name: "Home Page",
     protected: true,
   },
   {
-    path: "/login",
+    path: "",
     component: Login,
     name: "Login Screen",
     protected: false,

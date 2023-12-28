@@ -17,7 +17,7 @@ const AuthContainer = (props) => {
       .then(() => {
         setDisabled(false);
         console.info("TODO: navigate to authenticated screen");
-        navigate("/", { replace: true });
+        navigate("/map", { replace: true });
       })
       .catch((error) => {
         setErrorMessage(error.code + ": " + error.message);
