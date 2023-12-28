@@ -41,7 +41,7 @@ const RegistrationForm = () => {
         }
       }
       console.log("User registered:", user);
-      navigate("/",  { replace: true });
+      navigate("/map",  { replace: true });
     } catch (error) {
       setErrorMessage(error.code + ": " + error.message);
       setDisabled(false);
