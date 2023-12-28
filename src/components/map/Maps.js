@@ -73,8 +73,9 @@ export default function Maps(props) {
 
   useEffect(() => {
     const fetchAddedPharmacies = () => {
+      if (userDocId !== null && userDocId !== undefined) {
       const docRef = doc(firestore, "userLikedPharmacy", userDocId);
-
+      
       // Używamy onSnapshot do nasłuchiwania na zmiany w czasie rzeczywistym
       onSnapshot(docRef, (docSnap) => {
         if (docSnap.exists()) {
@@ -83,6 +84,7 @@ export default function Maps(props) {
           console.log("Brak dokumentu");
         }
       });
+    }
     };
 
     fetchAddedPharmacies();
