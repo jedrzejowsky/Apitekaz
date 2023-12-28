@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebase";
 import { Button, Typography, TextField } from "@mui/material";
 import Center from "../utils/Center";
+import {
+  addDoc, getFirestore, getDoc, setDoc, doc
+} from "firebase/firestore"
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
@@ -11,6 +14,8 @@ const RegistrationForm = () => {
   const [disabled, setDisabled] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const firestore = getFirestore();
 
   const handleRegistration = async () => {
     try {
@@ -23,6 +28,18 @@ const RegistrationForm = () => {
       setDisabled(false);
       console.info("TODO: Navigate to authenticated screen after registration");
       const user = userCredential.user;
+      const userRef = doc(firestore, 'userLikedPharmacy', userCredential.user.uid);
+      const createLikedDoc = await getDoc(userRef);
+      if (!createLikedDoc.exists()) {
+        try {
+          await setDoc(userRef, {
+            list: [],
+            user: userCredential.user.uid
+          });
+        } catch (error) {
+          console.error("Error while creating user document", error);
+        }
+      }
       console.log("User registered:", user);
       navigate("/");
     } catch (error) {
