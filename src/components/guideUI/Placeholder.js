@@ -19,7 +19,7 @@ import FindIcon from "@mui/icons-material/LocationOn";
 
 import CopyIcon from "@mui/icons-material/FileCopy";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import pharmaciesData from "../map/geoPharmacies_0_800.json";
+import pharmaciesData from "../map/geoPharmacies_id_all.json";
 import { auth, Firebase } from "../../config/firebase";
 import {
    addDoc, getFirestore, doc, collection, query, where, limit, getDocs, onSnapshot, updateDoc, arrayRemove
