@@ -46,14 +46,14 @@ export default function FullWidthTabs() {
         textColor="primary"
         variant="fullWidth"
       >
-        <Tab label="Likes" />
-        <Tab label="Profile" />
+        <Tab label="Twoje Apteki" />
+        <Tab label="Profil" />
       </Tabs>
       <TabPanel value={value} index={0} dir={theme.direction}>
         <Placeholder />
       </TabPanel>
       <TabPanel value={value} index={1} dir={theme.direction}>
-        <Typography variant="h6">Hello</Typography>
+        <Typography variant="h6">Hej!</Typography>
         {currentUser && <Typography> #{currentUser.email}</Typography>}
         <Divider />
         <Logout />
