@@ -20,13 +20,20 @@ import FindIcon from "@mui/icons-material/LocationOn";
 import CopyIcon from "@mui/icons-material/FileCopy";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import pharmaciesData from "../map/geoPharmacies_0_800.json";
+import { auth, Firebase } from "../../config/firebase";
+import {
+   addDoc, getFirestore, doc, collection, query, where, limit, getDocs, onSnapshot, updateDoc, arrayRemove
+ } from "firebase/firestore"
+
 
 export default function Placeholder() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [dialogContent, setDialogContent] = React.useState("");
-
-  // pierwsze 5 aptek
-  const pharmacies = pharmaciesData.slice(0, 5);
+  const firestore = getFirestore();
+  const likedPharmacyCollection = collection(firestore, 'userLikedPharmacy');
+  const [filteredData, setFilteredData] = React.useState([]);
+  const [userDocId, setUserDocId] = React.useState();
+ 
 
   const handleShare = (pharmacy) => {
     const pharmacyInfo = `
@@ -48,13 +55,22 @@ export default function Placeholder() {
     }
   };
 
-  const handleDelete = (pharmacy) => {
-    // logikę usuwania apteki
-    console.log(`Deleting ${pharmacy.name}`);
+  const handleDelete = async (pharmacy) => {
+    try {
+      const docRef = doc(firestore, 'userLikedPharmacy', userDocId);
+      await updateDoc(docRef, {
+        ['list']: arrayRemove(pharmacy.id)
+      });
+  
+      console.log(`Deleting ${pharmacy.name}`);
+    } catch (error) {
+      console.error("Błąd podczas usuwania elementu z tablicy", error);
+    }
+
   };
 
   const handleFind = (pharmacy) => {
-    // logikę wskazania apteki na mapie
+
     console.log(`Finding ${pharmacy.name}`);
   };
 
@@ -67,10 +83,55 @@ export default function Placeholder() {
     handleClose();
   };
 
+  React.useEffect(() => {
+    const getUserId = async () => {
+      return new Promise((resolve, reject) => {
+        auth.onAuthStateChanged(function(user){
+            if (user) {
+                resolve(user.uid);
+            } else {
+                console.log('Użytkownik jest wylogowany');
+                reject('Użytkownik jest wylogowany');
+            }
+        });
+      });
+    };
+
+    const queryLikedPharmacy = async () => {
+      let userId =  await getUserId();
+      console.log("ID to: " + userId);
+
+      const userLikedQuery = query(
+        likedPharmacyCollection, 
+        where('user', '==', userId ),
+        limit(1),);
+
+      
+      // const querySnapshot = await getDocs(userLikedQuery);
+      onSnapshot(userLikedQuery, (querySnapshot) =>{
+        querySnapshot.forEach((snap) => {
+          if(snap.exists()){
+            console.log(JSON.stringify(snap.data().list));
+            const temp = snap.data().list
+            setUserDocId(snap.id);
+            const result =  pharmaciesData.filter(item => temp.includes(item.id));
+            setFilteredData(result);
+          }
+          else{
+            console.log("Get doc error");
+          }
+        });
+      })
+
+    };
+    queryLikedPharmacy();
+   
+  }, []);
+
   return (
     <div>
       <Typography variant="h6">Likes</Typography>
-      {pharmacies.map((pharmacy, index) => (
+      {filteredData.map((pharmacy, index) => (
         <Paper key={index} elevation={3} style={{ marginBottom: "10px" }}>
           <Accordion>
             <AccordionSummary
@@ -91,7 +152,7 @@ export default function Placeholder() {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{pharmacy.phoneNumber}</Typography>
+              <Typography>tel. {pharmacy.phoneNumber}</Typography>
               <Typography>{pharmacy.email}</Typography>
               <Typography>{pharmacy.address.label}</Typography>
               <Button
