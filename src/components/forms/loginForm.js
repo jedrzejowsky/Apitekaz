@@ -18,7 +18,7 @@ const LoginForm = () => {
       await signInWithEmailAndPassword(auth, email, password);
       setDisabled(false);
       console.info("TODO: navigate to authenticated screen");
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (error) {
       setErrorMessage(error.code + ": " + error.message);
       setDisabled(false);
