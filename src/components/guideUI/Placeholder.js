@@ -22,18 +22,26 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import pharmaciesData from "../map/geoPharmacies_id_all.json";
 import { auth, Firebase } from "../../config/firebase";
 import {
-   addDoc, getFirestore, doc, collection, query, where, limit, getDocs, onSnapshot, updateDoc, arrayRemove
- } from "firebase/firestore"
-
+  addDoc,
+  getFirestore,
+  doc,
+  collection,
+  query,
+  where,
+  limit,
+  getDocs,
+  onSnapshot,
+  updateDoc,
+  arrayRemove,
+} from "firebase/firestore";
 
 export default function Placeholder() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [dialogContent, setDialogContent] = React.useState("");
   const firestore = getFirestore();
-  const likedPharmacyCollection = collection(firestore, 'userLikedPharmacy');
+  const likedPharmacyCollection = collection(firestore, "userLikedPharmacy");
   const [filteredData, setFilteredData] = React.useState([]);
   const [userDocId, setUserDocId] = React.useState();
- 
 
   const handleShare = (pharmacy) => {
     const pharmacyInfo = `
@@ -57,20 +65,18 @@ export default function Placeholder() {
 
   const handleDelete = async (pharmacy) => {
     try {
-      const docRef = doc(firestore, 'userLikedPharmacy', userDocId);
+      const docRef = doc(firestore, "userLikedPharmacy", userDocId);
       await updateDoc(docRef, {
-        ['list']: arrayRemove(pharmacy.id)
+        ["list"]: arrayRemove(pharmacy.id),
       });
-  
+
       console.log(`Deleting ${pharmacy.name}`);
     } catch (error) {
       console.error("Błąd podczas usuwania elementu z tablicy", error);
     }
-
   };
 
   const handleFind = (pharmacy) => {
-
     console.log(`Finding ${pharmacy.name}`);
   };
 
@@ -86,46 +92,45 @@ export default function Placeholder() {
   React.useEffect(() => {
     const getUserId = async () => {
       return new Promise((resolve, reject) => {
-        auth.onAuthStateChanged(function(user){
-            if (user) {
-                resolve(user.uid);
-            } else {
-                console.log('Użytkownik jest wylogowany');
-                reject('Użytkownik jest wylogowany');
-            }
+        auth.onAuthStateChanged(function (user) {
+          if (user) {
+            resolve(user.uid);
+          } else {
+            console.log("Użytkownik jest wylogowany");
+            reject("Użytkownik jest wylogowany");
+          }
         });
       });
     };
 
     const queryLikedPharmacy = async () => {
-      let userId =  await getUserId();
+      let userId = await getUserId();
       console.log("ID to: " + userId);
 
       const userLikedQuery = query(
-        likedPharmacyCollection, 
-        where('user', '==', userId ),
-        limit(1),);
+        likedPharmacyCollection,
+        where("user", "==", userId),
+        limit(1)
+      );
 
-      
       // const querySnapshot = await getDocs(userLikedQuery);
-      onSnapshot(userLikedQuery, (querySnapshot) =>{
+      onSnapshot(userLikedQuery, (querySnapshot) => {
         querySnapshot.forEach((snap) => {
-          if(snap.exists()){
+          if (snap.exists()) {
             console.log(JSON.stringify(snap.data().list));
-            const temp = snap.data().list
+            const temp = snap.data().list;
             setUserDocId(snap.id);
-            const result =  pharmaciesData.filter(item => temp.includes(item.id));
+            const result = pharmaciesData.filter((item) =>
+              temp.includes(item.id)
+            );
             setFilteredData(result);
-          }
-          else{
+          } else {
             console.log("Get doc error");
           }
         });
-      })
-
+      });
     };
     queryLikedPharmacy();
-   
   }, []);
 
   return (
