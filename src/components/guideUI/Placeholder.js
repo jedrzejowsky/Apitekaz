@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Divider,
@@ -15,42 +15,33 @@ import {
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FindIcon from "@mui/icons-material/LocationOn";
-
 import CopyIcon from "@mui/icons-material/FileCopy";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import pharmaciesData from "../map/geoPharmacies_id_all.json";
-import { auth, Firebase } from "../../config/firebase";
+import { auth } from "../../config/firebase";
 import {
-  addDoc,
   getFirestore,
   doc,
   collection,
   query,
   where,
   limit,
-  getDocs,
   onSnapshot,
   updateDoc,
   arrayRemove,
 } from "firebase/firestore";
 
-export default function Placeholder() {
-  const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [dialogContent, setDialogContent] = React.useState("");
+const Placeholder = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogContent, setDialogContent] = useState("");
   const firestore = getFirestore();
   const likedPharmacyCollection = collection(firestore, "userLikedPharmacy");
-  const [filteredData, setFilteredData] = React.useState([]);
-  const [userDocId, setUserDocId] = React.useState();
+  const [filteredData, setFilteredData] = useState([]);
+  const [userDocId, setUserDocId] = useState();
 
   const handleShare = (pharmacy) => {
-    const pharmacyInfo = `
-      Nazwa: ${pharmacy.name}
-      Adres: ${pharmacy.address.label}
-      Telefon: ${pharmacy.phoneNumber}
-      Email: ${pharmacy.email}
-      Apitekaz.vercel.app
-    `;
+    const pharmacyInfo = `${pharmacy.name}\nAdres: ${pharmacy.address.label}\nTelefon: ${pharmacy.phoneNumber}\nEmail: ${pharmacy.email}\nApitekaz.vercel.app`;
 
     if (navigator.share) {
       navigator.share({
@@ -76,10 +67,6 @@ export default function Placeholder() {
     }
   };
 
-  const handleFind = (pharmacy) => {
-    console.log(`Finding ${pharmacy.name}`);
-  };
-
   const handleClose = () => {
     setDialogOpen(false);
   };
@@ -89,7 +76,7 @@ export default function Placeholder() {
     handleClose();
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const getUserId = async () => {
       return new Promise((resolve, reject) => {
         auth.onAuthStateChanged(function (user) {
@@ -104,8 +91,14 @@ export default function Placeholder() {
     };
 
     const queryLikedPharmacy = async () => {
-      let userId = await getUserId();
-      console.log("ID to: " + userId);
+      let userId;
+      try {
+        userId = await getUserId();
+        console.log("ID to: " + userId);
+      } catch (error) {
+        console.error("Błąd podczas pobierania ID użytkownika", error);
+        return;
+      }
 
       const userLikedQuery = query(
         likedPharmacyCollection,
@@ -113,7 +106,6 @@ export default function Placeholder() {
         limit(1)
       );
 
-      // const querySnapshot = await getDocs(userLikedQuery);
       onSnapshot(userLikedQuery, (querySnapshot) => {
         querySnapshot.forEach((snap) => {
           if (snap.exists()) {
@@ -156,9 +148,18 @@ export default function Placeholder() {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>tel. {pharmacy.phoneNumber}</Typography>
-              <Typography>{pharmacy.email}</Typography>
               <Typography>{pharmacy.address.label}</Typography>
+              <Divider
+                orientation="horizontal"
+                flexItem
+                style={{ marginTop: "10px", marginBottom: "10px" }}
+              />
+              <Typography>
+                <LocalPhoneIcon /> {pharmacy.phoneNumber}
+              </Typography>
+              <Typography style={{ overflowWrap: "break-word" }}>
+                {pharmacy.email}{" "}
+              </Typography>
               <Button
                 startIcon={<ShareIcon />}
                 onClick={() => handleShare(pharmacy)}
@@ -170,12 +171,6 @@ export default function Placeholder() {
                 onClick={() => handleDelete(pharmacy)}
               >
                 Usuń
-              </Button>
-              <Button
-                startIcon={<FindIcon />}
-                onClick={() => handleFind(pharmacy)}
-              >
-                Znajdź
               </Button>
             </AccordionDetails>
           </Accordion>
@@ -195,4 +190,6 @@ export default function Placeholder() {
       </Dialog>
     </div>
   );
-}
+};
+
+export default Placeholder;

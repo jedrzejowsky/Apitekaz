@@ -7,8 +7,8 @@ import Placeholder from "./Placeholder";
 
 const Root = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
-  maxWidth: "290px", // Maksymalna szerokość
-  margin: "0 auto", // Wyśrodkowanie
+  maxWidth: "290px",
+  margin: "0 auto",
 }));
 
 function TabPanel(props) {

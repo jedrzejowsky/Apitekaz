@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import data from "./geoPharmacies_id_all.json";
-import L, { MarkerCluster } from "leaflet";
+import L from "leaflet";
 import url from "../../assets/placeholder.png";
 import Search from "./Search";
 import LocateControl from "./LocateControl";
@@ -18,28 +18,21 @@ import { auth } from "../../config/firebase";
 import Button from "@mui/material/Button";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DirectionsIcon from "@mui/icons-material/Directions";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 
 export default function Maps(props) {
-  const [pharmacies, setPharmacies] = useState([]);
-  const { selectPosition } = props;
   const position = [51.919438, 19.145136];
   const firestore = getFirestore();
   const userDocId = auth.currentUser ? auth.currentUser.uid : null;
   const [addedPharmacies, setAddedPharmacies] = useState([]);
+  const [userLocation, setUserLocation] = useState(null);
 
   const customIcon = new L.Icon({
     iconUrl: url,
     iconRetinaUrl: url,
     iconSize: new L.Point(40, 47),
   });
-
-  const createClusterCustomIcon = function (cluster) {
-    return L.divIcon({
-      html: `<span>${cluster.getChildCount()}</span>`,
-      className: "custom-marker-cluster",
-      iconSize: L.point(33, 33, true),
-    });
-  };
 
   const handleAdd = async (pharmacy) => {
     try {
@@ -52,7 +45,7 @@ export default function Maps(props) {
 
       console.log(`Adding ${pharmacy.name}`);
     } catch (error) {
-      console.error("Błąd podczas dodawania elementu do tablicy", error);
+      console.error("Error adding element to array", error);
     }
   };
 
@@ -67,26 +60,48 @@ export default function Maps(props) {
 
       console.log(`Deleting ${pharmacy.name}`);
     } catch (error) {
-      console.error("Błąd podczas usuwania elementu z tablicy", error);
+      console.error("Error removing element from array", error);
     }
+  };
+
+  const handleLocationFound = (event) => {
+    setUserLocation(event.latlng);
+  };
+
+  const calculateDistance = (pointA, pointB) => {
+    const R = 6371;
+    const dLat = deg2rad(pointB[0] - pointA[0]);
+    const dLon = deg2rad(pointB[1] - pointA[1]);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(pointA[0])) *
+        Math.cos(deg2rad(pointB[0])) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const d = R * c;
+    return d;
+  };
+
+  const deg2rad = (deg) => {
+    return deg * (Math.PI / 180);
   };
 
   useEffect(() => {
     const fetchAddedPharmacies = () => {
       const docRef = doc(firestore, "userLikedPharmacy", userDocId);
 
-      // Używamy onSnapshot do nasłuchiwania na zmiany w czasie rzeczywistym
       onSnapshot(docRef, (docSnap) => {
         if (docSnap.exists()) {
           setAddedPharmacies(docSnap.data().list);
         } else {
-          console.log("Brak dokumentu");
+          console.log("No document found");
         }
       });
     };
 
     fetchAddedPharmacies();
-  }, []); // Usuwamy addedPharmacies jako zależność
+  }, [firestore, userDocId]);
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
@@ -95,6 +110,9 @@ export default function Maps(props) {
         zoom={6}
         scrollWheelZoom={true}
         style={{ width: "100%", height: "100%" }}
+        whenReady={(mapInstance) => {
+          mapInstance.target.on("locationfound", handleLocationFound);
+        }}
       >
         <Search />
         <TileLayer
@@ -113,7 +131,9 @@ export default function Maps(props) {
                 <div>
                   <p>{address.name}</p>
                   <p>{address.address.label}</p>
-                  <p>tel. {address.phoneNumber}</p>
+                  <p>
+                    <LocalPhoneIcon /> {address.phoneNumber}
+                  </p>
                   {addedPharmacies.includes(address.id) ? (
                     <Button
                       variant="contained"
@@ -131,6 +151,24 @@ export default function Maps(props) {
                       onClick={() => handleAdd(address)}
                     >
                       Dodaj aptekę
+                    </Button>
+                  )}
+                  {userLocation && (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      startIcon={<DirectionsIcon />}
+                      onClick={() => {
+                        const distance = calculateDistance(
+                          [userLocation.lat, userLocation.lng],
+                          [address.position.lat, address.position.lng]
+                        );
+                        alert(
+                          `Apteka znajduje się ${distance.toFixed(1)} km stąd`
+                        );
+                      }}
+                    >
+                      Oblicz trasę
                     </Button>
                   )}
                 </div>
