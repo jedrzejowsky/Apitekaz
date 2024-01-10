@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
-import locateme from "../../assets/locateme.png"; // Zaimportuj obraz
+import locateme from "../../assets/locateme.png";
 
 export default function LocateControl() {
   const map = useMap();
@@ -10,13 +10,13 @@ export default function LocateControl() {
   useEffect(() => {
     const locateIcon = L.icon({
       iconUrl: locateme,
-      iconSize: [30, 30], // Rozmiar ikony, możesz go dostosować
+      iconSize: [30, 30],
     });
 
     function onLocationFound(e) {
       L.marker(e.latlng, { icon: locateIcon })
         .addTo(map)
-        .bindPopup("You are here")
+        .bindPopup("Tutaj jesteś")
         .openPopup();
     }
 
@@ -27,7 +27,6 @@ export default function LocateControl() {
     map.on("locationfound", onLocationFound);
     map.on("locationerror", onLocationError);
 
-    // Clean up event listeners on component unmount
     return () => {
       map.off("locationfound", onLocationFound);
       map.off("locationerror", onLocationError);

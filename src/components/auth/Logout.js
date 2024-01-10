@@ -26,7 +26,6 @@ const Logout = ({ navigateTo = "/" }) => {
         <Typography variant="h6" color="secondary">
           Logout
         </Typography>{" "}
-        {/* Zmieniamy variant na "h6" i color na "secondary" */}
       </IconButton>
     </div>
   );

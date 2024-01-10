@@ -6,7 +6,7 @@ import Center from "../components/utils/Center";
 import LoginForm from "../components/forms/loginForm";
 import RegistrationForm from "../components/forms/registrationForm";
 
-import backgroundImage from "../assets/background1.png"; // Update with your image path
+import backgroundImage from "../assets/background1.png";
 
 const tabIdToURL = {
   0: "login",
@@ -39,7 +39,7 @@ const Login = () => {
         boxShadow={2}
         margin={3}
         sx={{
-          backgroundImage: `url(${backgroundImage})`, // Set the background image
+          backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
@@ -47,15 +47,13 @@ const Login = () => {
         <Box sx={{ borderBottom: 1, borderColor: "divider", width: "100%" }}>
           <Tabs value={value} onChange={handleChange} variant="fullWidth">
             <Tab sx={{ px: { lg: 20, xs: 6 } }} label="Login" />
-            <Tab sx={{ px: { lg: 16, xs: 6 } }} label="Register" />
+            <Tab sx={{ px: { lg: 16, xs: 6 } }} label="Rejestracja" />
           </Tabs>
         </Box>
-        {/* login */}
         <TabPanel value={value} index={0}>
           <LoginForm />
           <AuthContainer />
         </TabPanel>
-        {/* register */}
         <TabPanel value={value} index={1}>
           <RegistrationForm />
           <AuthContainer />
