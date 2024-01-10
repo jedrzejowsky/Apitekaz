@@ -12,10 +12,12 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  Box,
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FindIcon from "@mui/icons-material/LocationOn";
+import TextField from '@mui/material/TextField';
 
 import CopyIcon from "@mui/icons-material/FileCopy";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -152,13 +154,14 @@ export default function Placeholder() {
                 />
               )}
               <Typography>
-                {pharmacy.address.city}, {pharmacy.address.street}
+                {pharmacy.address.city}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>tel. {pharmacy.phoneNumber}</Typography>
-              <Typography>{pharmacy.email}</Typography>
+              <Typography style={{ overflowWrap: 'break-word' }}>{pharmacy.email}</Typography>
               <Typography>{pharmacy.address.label}</Typography>
+              <Box display="flex" justifyContent="flex-end">
               <Button
                 startIcon={<ShareIcon />}
                 onClick={() => handleShare(pharmacy)}
@@ -171,12 +174,8 @@ export default function Placeholder() {
               >
                 Usuń
               </Button>
-              <Button
-                startIcon={<FindIcon />}
-                onClick={() => handleFind(pharmacy)}
-              >
-                Znajdź
-              </Button>
+            
+              </Box>
             </AccordionDetails>
           </Accordion>
         </Paper>
