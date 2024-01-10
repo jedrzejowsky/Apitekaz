@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
@@ -6,6 +6,7 @@ import locateme from "../../assets/locateme.png";
 
 export default function LocateControl() {
   const map = useMap();
+  const markerRef = useRef(null);
 
   useEffect(() => {
     const locateIcon = L.icon({
@@ -14,9 +15,12 @@ export default function LocateControl() {
     });
 
     function onLocationFound(e) {
-      L.marker(e.latlng, { icon: locateIcon })
+      if (markerRef.current) {
+        map.removeLayer(markerRef.current);
+      }
+      markerRef.current = L.marker(e.latlng, { icon: locateIcon })
         .addTo(map)
-        .bindPopup("Tutaj jesteś")
+        .bindPopup("You are here")
         .openPopup();
     }
 
