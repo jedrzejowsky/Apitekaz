@@ -12,6 +12,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  Box
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -155,11 +156,12 @@ const Placeholder = () => {
                 style={{ marginTop: "10px", marginBottom: "10px" }}
               />
               <Typography>
-                <LocalPhoneIcon /> {pharmacy.phoneNumber}
+                <LocalPhoneIcon style={{ fontSize: 18 }}/> {pharmacy.phoneNumber}
               </Typography>
-              <Typography style={{ overflowWrap: "break-word" }}>
+              <Typography mb={1} style={{ overflowWrap: "break-word" }}>
                 {pharmacy.email}{" "}
               </Typography>
+              <Box display="flex" justifyContent="flex-end">
               <Button
                 startIcon={<ShareIcon />}
                 onClick={() => handleShare(pharmacy)}
@@ -172,6 +174,7 @@ const Placeholder = () => {
               >
                 Usuń
               </Button>
+              </Box>
             </AccordionDetails>
           </Accordion>
         </Paper>

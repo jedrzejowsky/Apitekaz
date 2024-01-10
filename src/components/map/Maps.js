@@ -134,7 +134,7 @@ export default function Maps(props) {
                   <p>{address.name}</p>
                   <p>{address.address.label}</p>
                   <p>
-                    <LocalPhoneIcon /> {address.phoneNumber}
+                    <LocalPhoneIcon style={{ fontSize: 18 }} />  {address.phoneNumber}
                   </p>
                   {addedPharmacies.includes(address.id) ? (
                     <Button
