@@ -50,13 +50,13 @@ export default function MyComponent() {
           onClick={handleDrawerOpen}
           edge="end"
         >
-          <ChevronRightIconStyled />
+          <ChevronLeftIconStyled />
         </IconButtonStyled>
       )}
       <DrawerStyled variant="persistent" anchor="right" open={open}>
         {open && (
           <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIconStyled />
+            <ChevronRightIconStyled />
           </IconButton>
         )}
         <Tabs />
