@@ -20,6 +20,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import {Box} from "@mui/material";
 
 export default function Maps(props) {
   const position = [51.919438, 19.145136];
@@ -134,9 +135,10 @@ export default function Maps(props) {
                   <p>{address.name}</p>
                   <p>{address.address.label}</p>
                   <p>
-                    <LocalPhoneIcon /> {address.phoneNumber}
+                    <LocalPhoneIcon style={{ fontSize: 18 }} />  {address.phoneNumber}
                   </p>
                   {addedPharmacies.includes(address.id) ? (
+                    <Box mb={2}>
                     <Button
                       variant="contained"
                       color="secondary"
@@ -145,18 +147,23 @@ export default function Maps(props) {
                     >
                       Usuń aptekę
                     </Button>
+                    </Box>
                   ) : (
+                    <Box mb={2}>
                     <Button
                       variant="contained"
                       color="primary"
                       startIcon={<AddBoxIcon />}
                       onClick={() => handleAdd(address)}
+                      
                     >
                       Dodaj aptekę
                     </Button>
+                    </Box>
                   )}
                   {userLocation && (
-                    <Button
+                      <Box mb={2}>
+                    <Button 
                       variant="contained"
                       color="primary"
                       startIcon={<DirectionsIcon />}
@@ -169,9 +176,11 @@ export default function Maps(props) {
                           `Apteka znajduje się ${distance.toFixed(1)} km stąd`
                         );
                       }}
+                   
                     >
                       Oblicz trasę
                     </Button>
+                    </Box>
                   )}
                 </div>
               </Popup>
