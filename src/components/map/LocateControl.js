@@ -20,7 +20,7 @@ export default function LocateControl() {
       }
       markerRef.current = L.marker(e.latlng, { icon: locateIcon })
         .addTo(map)
-        .bindPopup("You are here")
+        .bindPopup("Jesteś tutaj")
         .openPopup();
     }
 
