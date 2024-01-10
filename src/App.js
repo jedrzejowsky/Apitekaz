@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CircularProgress, createTheme, ThemeProvider } from "@mui/material";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { auth } from "./config/firebase";
 import routes from "./config/routes";
 import Center from "./components/utils/Center";
@@ -49,6 +49,7 @@ function App() {
                 }
               />
             ))}
+            <Route path="*" element={<Navigate to="/" />} />{" "}
           </Routes>
         </BrowserRouter>
       </div>

@@ -46,7 +46,7 @@ const Login = () => {
       >
         <Box sx={{ borderBottom: 1, borderColor: "divider", width: "100%" }}>
           <Tabs value={value} onChange={handleChange} variant="fullWidth">
-            <Tab sx={{ px: { lg: 20, xs: 6 } }} label="Login" />
+            <Tab sx={{ px: { lg: 20, xs: 6 } }} label="Logowanie" />
             <Tab sx={{ px: { lg: 16, xs: 6 } }} label="Rejestracja" />
           </Tabs>
         </Box>
