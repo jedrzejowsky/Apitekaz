@@ -89,6 +89,7 @@ export default function Maps(props) {
 
   useEffect(() => {
     const fetchAddedPharmacies = () => {
+      if (userDocId !== null && userDocId !== undefined) {
       const docRef = doc(firestore, "userLikedPharmacy", userDocId);
 
       onSnapshot(docRef, (docSnap) => {
@@ -98,6 +99,7 @@ export default function Maps(props) {
           console.log("No document found");
         }
       });
+    }
     };
 
     fetchAddedPharmacies();
