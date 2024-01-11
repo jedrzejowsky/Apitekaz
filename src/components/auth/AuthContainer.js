@@ -13,6 +13,7 @@ const AuthContainer = (props) => {
   const [disabled, setDisabled] = useState(false);
   const firestore = getFirestore();
 
+
   const signInWithGoogle = () => {
     setDisabled(true);
     signInWithPopup(auth, Providers.google)
@@ -37,7 +38,7 @@ const AuthContainer = (props) => {
         }
         console.log("User registered:", user);
         console.info("TODO: navigate to authenticated screen");
-        navigate("/map", { replace: true });
+        navigate("/map");
       })
       .catch((error) => {
         setErrorMessage(error.code + ": " + error.message);
@@ -54,7 +55,9 @@ const AuthContainer = (props) => {
         variant="contained"
         onClick={signInWithGoogle}
       >
-        Kontynuuj poprzez konto google{" "}
+
+        Kontynuuj przez konto google{" "}
+
       </Button>
       <Typography sx={{ mt: 2 }} color={"red"}>
         {errorMessage}
