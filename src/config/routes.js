@@ -12,8 +12,8 @@ const routes = [
     path: "",
     component: Login,
     name: "Login Screen",
-    protected: false,
-  }
+    protected: true,
+  },
 ];
 
 export default routes;
