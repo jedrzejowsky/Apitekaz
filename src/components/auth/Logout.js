@@ -24,7 +24,7 @@ const Logout = ({ navigateTo = "/" }) => {
     <div>
       <IconButton disabled={disabled} onClick={logout} aria-label="Logout">
         <Typography variant="h6" color="secondary">
-          Wyloguj
+          Logout
         </Typography>{" "}
       </IconButton>
     </div>

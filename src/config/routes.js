@@ -9,11 +9,11 @@ const routes = [
     protected: true,
   },
   {
-    path: "/",
+    path: "",
     component: Login,
     name: "Login Screen",
-    protected: true,
-  },
+    protected: false,
+  }
 ];
 
 export default routes;

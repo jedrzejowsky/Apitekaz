@@ -18,7 +18,7 @@ const LoginForm = () => {
       await signInWithEmailAndPassword(auth, email, password);
       setDisabled(false);
       console.info("TODO: navigate to authenticated screen");
-      navigate("/map");
+      navigate("/map", { replace: true });
     } catch (error) {
       setErrorMessage(error.code + ": " + error.message);
       setDisabled(false);
@@ -38,7 +38,7 @@ const LoginForm = () => {
       />
       <TextField
         type="password"
-        label="Hasło"
+        label="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         fullWidth
@@ -50,7 +50,7 @@ const LoginForm = () => {
         disabled={disabled}
         onClick={handleEmailAndPasswordSignIn}
       >
-        Zaloguj
+        Sign In
       </Button>
       <Typography sx={{ mt: 2 }} color={"red"}>
         {errorMessage}
