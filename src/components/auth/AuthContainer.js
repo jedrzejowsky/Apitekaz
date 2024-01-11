@@ -54,7 +54,7 @@ const AuthContainer = (props) => {
         variant="contained"
         onClick={signInWithGoogle}
       >
-        Sign In With Google
+        Kontynuuj poprzez konto google{" "}
       </Button>
       <Typography sx={{ mt: 2 }} color={"red"}>
         {errorMessage}

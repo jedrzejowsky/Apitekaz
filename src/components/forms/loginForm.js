@@ -38,7 +38,7 @@ const LoginForm = () => {
       />
       <TextField
         type="password"
-        label="Password"
+        label="Hasło"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         fullWidth
@@ -50,7 +50,7 @@ const LoginForm = () => {
         disabled={disabled}
         onClick={handleEmailAndPasswordSignIn}
       >
-        Sign In
+        Zaloguj
       </Button>
       <Typography sx={{ mt: 2 }} color={"red"}>
         {errorMessage}

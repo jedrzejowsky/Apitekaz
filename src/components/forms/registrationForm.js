@@ -43,7 +43,7 @@ const RegistrationForm = () => {
         }
       }
       console.log("User registered:", user);
-      navigate("/map",  { replace: true });
+      navigate("/map", { replace: true });
     } catch (error) {
       setErrorMessage(error.code + ": " + error.message);
       setDisabled(false);
@@ -63,7 +63,7 @@ const RegistrationForm = () => {
       />
       <TextField
         type="password"
-        label="Password"
+        label="Hasło"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         fullWidth
@@ -75,7 +75,7 @@ const RegistrationForm = () => {
         disabled={disabled}
         onClick={handleRegistration}
       >
-        Register
+        Zarejestruj
       </Button>
       <Typography sx={{ mt: 2 }} color={"red"}>
         {errorMessage}
