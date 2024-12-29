@@ -1,5 +1,6 @@
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import NotFound from "../pages/NotFound";
 
 const routes = [
   {
@@ -12,6 +13,12 @@ const routes = [
     path: "",
     component: Login,
     name: "Login Screen",
+    protected: false,
+  },
+  {
+    path: "/*",
+    name: "Not Found",
+    component: NotFound,
     protected: false,
   }
 ];
